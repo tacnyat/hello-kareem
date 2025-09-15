@@ -13,5 +13,31 @@
         <p>هذه صفحة ويب بسيطة تم إنشاؤها باستخدام HTML و CSS. استمتع بالتصميم!</p>
     </div>
 
+    <div class="joke-section">
+        <h2>مولّد نكتة عشوائية 😄</h2>
+        <button id="joke-btn">أحضِر نكتة!</button>
+        <div id="joke-container"></div>
+    </div>
+
+    <script>
+      async function fetchJoke() {
+        const btn = document.getElementById('joke-btn');
+        const container = document.getElementById('joke-container');
+        container.textContent = 'جاري التحميل...';
+        btn.disabled = true;
+
+        try {
+          const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+          const data = await res.json();
+          container.innerHTML = `<strong>${data.setup}</strong><br>${data.punchline}`;
+        } catch (e) {
+          container.textContent = 'حدث خطأ أثناء جلب النكتة!';
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      document.getElementById('joke-btn').addEventListener('click', fetchJoke);
+    </script>
 </body>
 </html>
