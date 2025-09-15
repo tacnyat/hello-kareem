@@ -2,9 +2,10 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
@@ -16,6 +17,8 @@ body {
     text-align: center;
     max-width: 500px;
     transition: transform 0.3s ease-in-out;
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .card:hover {
@@ -32,4 +35,49 @@ p {
     color: #666;
     font-size: 1.2em;
     line-height: 1.6;
+}
+
+.joke-section {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.joke-section h2 {
+    color: #37517e;
+    margin-bottom: 18px;
+    font-size: 1.6em;
+}
+
+#joke-btn {
+    background-color: #6a7ba2;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 1.08em;
+    cursor: pointer;
+    margin-bottom: 18px;
+    transition: background 0.2s;
+}
+
+#joke-btn:disabled {
+    background-color: #b7c5e0;
+    cursor: not-allowed;
+}
+
+#joke-btn:hover:not(:disabled) {
+    background-color: #506091;
+}
+
+#joke-container {
+    color: #444;
+    font-size: 1.15em;
+    margin-top: 10px;
+    min-height: 40px;
 }
