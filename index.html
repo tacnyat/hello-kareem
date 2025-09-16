@@ -13,6 +13,31 @@
         <p>هذه صفحة ويب بسيطة تم إنشاؤها باستخدام HTML و CSS. استمتع بالتصميم!</p>
     </div>
 
+    <div class="countdown-section">
+        <h2>العد التنازلي لليوم الوطني السعودي 🇸🇦</h2>
+        <div id="countdown-container">
+            <div class="countdown-display">
+                <div class="time-unit">
+                    <span id="days">000</span>
+                    <span class="label">يوم</span>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <span class="label">ساعة</span>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <span class="label">دقيقة</span>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <span class="label">ثانية</span>
+                </div>
+            </div>
+            <p id="target-date">التاريخ المستهدف: <span id="target-date-text"></span></p>
+        </div>
+    </div>
+
     <div class="joke-section">
         <h2>مولّد نكتة عشوائية 😄</h2>
         <button id="joke-btn">أحضِر نكتة!</button>
@@ -20,6 +45,48 @@
     </div>
 
     <script>
+      // Countdown Timer for Saudi National Day
+      function initCountdown() {
+        // Calculate target date (360 days from now)
+        const now = new Date();
+        const targetDate = new Date(now.getTime() + (360 * 24 * 60 * 60 * 1000));
+        
+        // Display target date in Arabic format
+        const options = { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          weekday: 'long'
+        };
+        const arabicDate = targetDate.toLocaleDateString('ar-SA', options);
+        document.getElementById('target-date-text').textContent = arabicDate;
+        
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const distance = targetDate.getTime() - now;
+          
+          if (distance < 0) {
+            document.getElementById('countdown-container').innerHTML = '<h3>🎉 حان وقت الاحتفال باليوم الوطني السعودي! 🇸🇦</h3>';
+            return;
+          }
+          
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          document.getElementById('days').textContent = days.toString().padStart(3, '0');
+          document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Update immediately and then every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // Joke functionality
       async function fetchJoke() {
         const btn = document.getElementById('joke-btn');
         const container = document.getElementById('joke-container');
@@ -37,7 +104,11 @@
         }
       }
 
-      document.getElementById('joke-btn').addEventListener('click', fetchJoke);
+      // Initialize when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        initCountdown();
+        document.getElementById('joke-btn').addEventListener('click', fetchJoke);
+      });
     </script>
 </body>
 </html>
